@@ -49,7 +49,7 @@ body {
 #imgDiv {
     width: 100%;
     height: 36vh;
-    min-height: 300px;
+    min-height: 270px;
     background: url('./images/bg-desktop-dark.jpg') no-repeat center center/cover;
 }
 
@@ -78,6 +78,11 @@ body {
 
 #darkBtn {
     display: none;
+    cursor: pointer;
+}
+
+#lightBtn {
+    cursor: pointer;
 }
 
 #inputDiv {
@@ -89,16 +94,33 @@ body {
     margin-bottom: 27px;
 }
 
+#inputCheckHolder {
+    border: 1px solid var(--veryDarkGrayishBlue1);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    margin-right: 20px;
+    /* cursor: pointer; */
+}
+
 .checkHolder {
     border: 1px solid var(--veryDarkGrayishBlue1);
     border-radius: 50%;
     width: 25px;
     height: 25px;
     display: flex;
-    /* background-image: var(--checkBackground); */
     margin-right: 20px;
-
+    cursor: pointer;
 }
+
+/*.checkHolder:hover{
+    border-image-source: var(--checkBackground);
+    /* border-radius: 50%;  
+    border-image-slice: 1;
+     border-image-width: 3px; 
+    clip-path: ellipse(60px 40px at 75px 30px);  
+} */
 
 .checkIcon {
     padding: 5px;
@@ -127,10 +149,15 @@ body {
 }
 
 #notesContainer {
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
+    /* min-height: 200px; */
+    max-height: 50vh;
+    overflow-y: auto;
+    /* scroll-behavior: smooth ; */
+    box-shadow: 1px 1px 30px 0 black;
 }
 
-.noteContainer:first-child{
+.noteContainer:first-child {
     border-radius: 5px 5px 0 0;
 }
 
@@ -139,10 +166,44 @@ body {
     align-items: center;
     padding: 20px 20px;
     background-color: var(--veryDarkDesaturatedBlue);
+    position: relative;
+    cursor: pointer;
 }
 
-hr{
+.deleteBtn {
+    position: absolute;
+    right: 20px;
+    display: none;
+}
+
+hr {
     border: none;
     height: 1px;
     background-color: var(--veryDarkGrayishBlue1);
+}
+
+#optionContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--veryDarkDesaturatedBlue);
+    border-radius: 0 0 5px 5px;
+    font-size: 16px;
+    color: var(--veryDarkGrayishBlue1);
+    box-shadow: 0 1px 50px 0 black;
+}
+
+#optionContainer>div {
+    width: 200px;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.hover:hover {
+    color: var(--veryLightGray);
+    cursor: pointer;
 }
