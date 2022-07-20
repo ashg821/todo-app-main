@@ -12,7 +12,12 @@ function getFromLocalStorage() {
 const allNotes = document.getElementById('all');
 allNotes.addEventListener('click', () => {
     showAllNotes();
-    handleLinkColors(0, mode);
+    handleLinkColors(0);
+    const links = document.querySelectorAll('.notesLink');
+    links.forEach(ele => {
+        ele.classList.remove('active');
+    });
+    links[0].classList.add('active');
 });
 
 function showAllNotes() {
@@ -39,6 +44,17 @@ function showAllNotes() {
             noteContainer[index].children[1].style.textDecoration = 'line-through';
         }
     });
+    const noteContainer = document.querySelectorAll('.noteContainer');
+    if (mode == 'light') {
+        noteContainer.forEach(ele => {
+            ele.style.backgroundColor = 'var(--veryLightGray)';
+        });
+    }
+    else {
+        noteContainer.forEach(ele => {
+            ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
+        });
+    }
     addEventListenerToCheckBox();
     addEventListenerToDeleteBtn();
     addHoverEffectToNoteContainer(notesContainer);
@@ -54,21 +70,37 @@ function showActiveNotes() {
     const activeNote = document.getElementById('active');
     const notesContainer = document.getElementById('notesContainer');
     activeNote.addEventListener('click', () => {
+        const links = document.querySelectorAll('.notesLink');
+        links.forEach(ele => {
+            ele.classList.remove('active');
+        });
+        links[1].classList.add('active');
         notesContainer.innerHTML = '';
         activeNote.style.color = 'var(--brightBlue)';
-        handleLinkColors(1, mode);
+        handleLinkColors(1);
         getFromLocalStorage().notes.forEach(ele => {
             if (ele[1] == 1) {
                 notesContainer.innerHTML += `
                 <div class="noteContainer">
-                    <div class="checkHolder">
-                    <img src="./images/icon-check.svg" alt="check-icon" class="checkIcon">
-                    </div>
-                    <p class="noteText">${ele[0]}</p>
-                    <img src="./images/icon-cross.svg" class="deleteBtn"/>
+                <div class="checkHolder">
+                <img src="./images/icon-check.svg" alt="check-icon" class="checkIcon">
+                </div>
+                <p class="noteText">${ele[0]}</p>
+                <img src="./images/icon-cross.svg" class="deleteBtn"/>
                 </div> 
                 <hr>
                 `;
+            }
+            const noteContainer = document.querySelectorAll('.noteContainer');
+            if (mode == 'light') {
+                noteContainer.forEach(ele => {
+                    ele.style.backgroundColor = 'var(--veryLightGray)';
+                });
+            }
+            else {
+                noteContainer.forEach(ele => {
+                    ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
+                });
             }
         });
     });
@@ -80,18 +112,23 @@ function showCompletedNotes() {
     const notesContainer = document.getElementById('notesContainer');
 
     completedNote.addEventListener('click', () => {
+        const links = document.querySelectorAll('.notesLink');
+        links.forEach(ele => {
+            ele.classList.remove('active');
+        });
+        links[2].classList.add('active');
         notesContainer.innerHTML = ``;
         completedNote.style.color = 'var(--brightBlue)';
-        handleLinkColors(2, mode);
+        handleLinkColors(2);
         getFromLocalStorage().notes.forEach(ele => {
             if (ele[2] == 1) {
                 notesContainer.innerHTML += `
                 <div class="noteContainer">
-                    <div class="checkHolder">
-                    <img src="./images/icon-check.svg" alt="check-icon" class="checkIcon">
-                    </div>
-                    <p class="noteText">${ele[0]}</p>
-                    <img src="./images/icon-cross.svg" class="deleteBtn"/>
+                <div class="checkHolder">
+                <img src="./images/icon-check.svg" alt="check-icon" class="checkIcon">
+                </div>
+                <p class="noteText">${ele[0]}</p>
+                <img src="./images/icon-cross.svg" class="deleteBtn"/>
                 </div> 
                 <hr>
                 `;
@@ -104,6 +141,16 @@ function showCompletedNotes() {
                 noteContainer[index].children[0].style.backgroundImage = 'var(--checkBackground)';
                 noteContainer[index].children[1].style.color = 'var(--veryDarkGrayishBlue1)';
                 noteContainer[index].children[1].style.textDecoration = 'line-through';
+            });
+        }
+        if (mode == 'light') {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryLightGray)';
+            });
+        }
+        else {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
             });
         }
     });
@@ -135,6 +182,17 @@ function clearCompletedNotes() {
         </div> 
         <hr>`;
         });
+        const noteContainer = document.querySelectorAll('.noteContainer');
+        if (mode == 'light') {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryLightGray)';
+            });
+        }
+        else {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
+            });
+        }
 
 
     });
@@ -143,7 +201,6 @@ function clearCompletedNotes() {
 
 function addingInputEventHandler() {
     const inputTag = document.getElementById('inputNote');
-    // console.log(checkHolders);
     inputTag.addEventListener('change', (e) => {
         const notesContainer = document.getElementById('notesContainer');
         notesContainer.innerHTML += `
@@ -155,7 +212,18 @@ function addingInputEventHandler() {
                 <img src="./images/icon-cross.svg" class="deleteBtn"/>
             </div>
             <hr>
-            `
+            `;
+        const noteContainer = document.querySelectorAll('.noteContainer');
+        if (mode == 'light') {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryLightGray)';
+            });
+        }
+        else {
+            noteContainer.forEach(ele => {
+                ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
+            });
+        }
         dataObj.notes.push([e.target.value, 1, 0]);
         setToLocalStorage(dataObj);
         e.target.value = '';
@@ -167,7 +235,6 @@ function addingInputEventHandler() {
         showCompletedNotes();
         clearCompletedNotes();
         handleMode();
-        handleHover();
     });
 }
 
@@ -194,8 +261,9 @@ function addEventListenerToCheckBox() {
                 checked = 0;
                 ele.children[0].style.display = 'none';
                 ele.style.backgroundImage = 'none';
-                ele.parentElement.children[1].style.color = 'var(--veryLightGray';
                 ele.parentElement.children[1].style.textDecoration = 'none';
+                if (mode == 'dark') ele.parentElement.children[1].style.color = 'var(--veryLightGray)';
+                else ele.parentElement.children[1].style.color = 'var(--veryDarkBlue)';
                 dataObj.notes.forEach((element, Index) => {
                     if (index == Index) {
                         element[1] = 1;
@@ -247,7 +315,7 @@ function updateLeftNotes() {
 }
 
 function handleLinkColors(index) {
-    const links = document.querySelectorAll('.link');
+    const links = document.querySelectorAll('.notesLink');
     links.forEach((ele, Index) => {
         if (Index !== index) links[Index].style.color = 'var(--veryDarkGrayishBlue1)';
     });
@@ -258,26 +326,29 @@ function handleMode() {
     const nightBtn = document.getElementById('darkBtn');
     const imgDiv = document.getElementById('imgDiv');
     const inputDiv = document.getElementById('inputDiv');
-    const noteContainer = document.querySelectorAll('.noteContainer');
     const inputTag = document.getElementById('inputNote');
     const optionContainer = document.getElementById('optionContainer');
+    const optionContainerSeparate = document.getElementById('optionContainerSeparate');
 
     dayBtn.addEventListener('click', () => {
         mode = 'light';
+        const noteContainer = document.querySelectorAll('.noteContainer');
         dayBtn.style.display = 'none';
         darkBtn.style.display = 'inline';
         imgDiv.style.background = `url('./images/bg-desktop-light.jpg') no-repeat center center/cover`;
         document.body.style.backgroundColor = 'var(--veryLightGray)';
-        document.body.style.color = 'var(--veryDarkGrayishBlue)';
+        document.body.style.color = 'var(--veryDarkDesaturatedBlue)';
         inputDiv.style.backgroundColor = 'var(--veryLightGray)';
-        inputTag.style.color = 'var(--veryDarkGrayishBlue)';
+        inputTag.style.color = 'var(--veryDarkDesaturatedBlue)';
         optionContainer.style.backgroundColor = 'var(--veryLightGray)';
+        optionContainerSeparate.style.backgroundColor = 'var(--veryLightGray)';
         noteContainer.forEach(ele => {
             ele.style.backgroundColor = 'var(--veryLightGray)';
         });
     });
 
     nightBtn.addEventListener('click', () => {
+        const noteContainer = document.querySelectorAll('.noteContainer');
         mode = 'dark';
         dayBtn.style.display = 'inline';
         darkBtn.style.display = 'none';
@@ -287,27 +358,96 @@ function handleMode() {
         inputDiv.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
         inputTag.style.color = 'var(--veryLightGray)';
         optionContainer.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
+        optionContainerSeparate.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
         noteContainer.forEach(ele => {
             ele.style.backgroundColor = 'var(--veryDarkDesaturatedBlue)';
         });
     });
 }
 
-// function handleHover() {
-//     const links = document.querySelectorAll('.link');
-//     links.forEach(ele => {
-//         ele.addEventListener('mouseover', ()=>{
-//             if(mode == 'light') ele.style.color = 'var(--veryDarkGrayishBlue)';
-            
-//             else ele.style.color = 'var(--veryLightGray)';
-//         });
-//         ele.addEventListener('mouseleave', ()=>{
-//             ele.style.color = 'var(--veryDarkGrayishBlue1)'
-//         });
-//     });
+function handleHover() {
+    const links = document.querySelectorAll('.notesLink');
+    links.forEach(ele => {
+        ele.addEventListener('mouseover', () => {
+            if (mode == 'light' && !ele.classList.contains('active')) {
+                ele.style.color = 'var(--veryDarkDesaturatedBlue)';
+            }
 
-// }
+            else if (mode == 'dark' && !ele.classList.contains('active')) {
+                ele.style.color = 'var(--veryLightGray)';
+            }
+        });
+        ele.addEventListener('mouseleave', () => {
+            if (!ele.classList.contains('active')) ele.style.color = 'var(--veryDarkGrayishBlue1)';
+        });
+    });
 
+}
+
+const mediaWidth1 = window.matchMedia("(max-width: 1000px)");
+const mediaWidth2 = window.matchMedia("(min-width: 1001px)");
+function makeSeparateOptionContainer() {
+    const separateOptionContainer = document.getElementById('optionContainerSeparate');
+    const optionContainer = document.getElementById('optionContainer');
+    const linkContainer = document.getElementById('linkContainer');
+    const dayBtn = document.getElementById('lightBtn');
+    const nightBtn = document.getElementById('darkBtn');
+    const imgDiv = document.getElementById('imgDiv');
+    if (mediaWidth1.matches) {
+        separateOptionContainer.appendChild(optionContainer.removeChild(linkContainer));
+        if (mode == 'light') {
+            imgDiv.style.background = `url('./images/bg-mobile-light.jpg') no-repeat center center/cover`;
+        }
+        else {
+            imgDiv.style.background = `url('./images/bg-mobile-dark.jpg') no-repeat center center/cover`;
+        }
+        dayBtn.addEventListener('click', () => {
+            mode = 'light';
+            imgDiv.style.background = `url('./images/bg-mobile-light.jpg') no-repeat center center/cover`;
+
+        });
+        nightBtn.addEventListener('click', () => {
+            mode = 'dark';
+            imgDiv.style.background = `url('./images/bg-mobile-dark.jpg') no-repeat center center/cover`;
+
+        });
+
+    }
+}
+
+function makeOneOptionContainer() {
+    const optionContainer = document.getElementById('optionContainer');
+    const linkContainer = document.getElementById('linkContainer');
+    const clearCompleted = document.getElementById('clearCompleted');
+    const dayBtn = document.getElementById('lightBtn');
+    const nightBtn = document.getElementById('darkBtn');
+    const imgDiv = document.getElementById('imgDiv');
+
+    if (mediaWidth2.matches) {
+        optionContainer.insertBefore(linkContainer, clearCompleted);
+        if (mode == 'light') {
+            imgDiv.style.background = `url('./images/bg-desktop-light.jpg') no-repeat center center/cover`;
+        }
+        else {
+            imgDiv.style.background = `url('./images/bg-desktop-dark.jpg') no-repeat center center/cover`;
+        }
+        dayBtn.addEventListener('click', () => {
+            mode = 'light';
+            imgDiv.style.background = `url('./images/bg-desktop-light.jpg') no-repeat center center/cover`;
+
+        });
+        nightBtn.addEventListener('click', () => {
+            mode = 'dark';
+            imgDiv.style.background = `url('./images/bg-desktop-dark.jpg') no-repeat center center/cover`;
+
+        });
+    }
+}
+
+mediaWidth1.addListener(makeSeparateOptionContainer);
+mediaWidth2.addListener(makeOneOptionContainer);
 
 showAllNotes();
 addingInputEventHandler();
+makeSeparateOptionContainer();
+makeOneOptionContainer();

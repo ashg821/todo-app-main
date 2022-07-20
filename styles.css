@@ -55,7 +55,7 @@ body {
 
 #subContainer {
     width: 43vw;
-    min-width: 400px;
+    min-width: 340px;
     min-height: 500px;
     margin: auto;
     position: absolute;
@@ -189,21 +189,49 @@ hr {
     padding: 15px 20px;
     background-color: var(--veryDarkDesaturatedBlue);
     border-radius: 0 0 5px 5px;
-    font-size: 16px;
+    font-size: 14px;
     color: var(--veryDarkGrayishBlue1);
     box-shadow: 0 1px 50px 0 black;
+    margin-bottom: 30px;
 }
 
-#optionContainer>div {
+#linkContainer {
     width: 200px;
     min-width: 200px;
     display: flex;
     justify-content: space-between;
+    margin: auto;
+    color: var(--veryDarkGrayishBlue1);
 }
 
-
-
-.hover:hover {
-    color: var(--veryLightGray);
+.link{
     cursor: pointer;
 }
+
+#optionContainerSeparate{
+    background-color: var(--veryDarkDesaturatedBlue);
+    border-radius: 5px;
+    box-shadow: 0 1px 50px 0 black;
+
+}
+
+@media screen and (max-width: 1000px){
+    body{
+        font-size: 14px;
+    }
+
+    #notesHeading {
+        font-size: 30px;
+    }
+
+    #inputNote {
+        font-size: 14px;
+    }
+
+    #optionContainerSeparate{
+        padding: 15px 20px;
+    }
+
+
+}
+
